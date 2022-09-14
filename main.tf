@@ -10,8 +10,11 @@ terraform {
 }
 
 provider "azurerm" {
-  features {}
-
+  features {
+    resource_group {
+    prevent_deletion_if_contains_resources = false
+  }
+  }
   subscription_id = var.subscription_id
   tenant_id = var.tenant_id
 }
@@ -22,10 +25,12 @@ resource "azurerm_resource_group" "rg" {
 }
 
 #second resource group
+/*
 resource "azurerm_resource_group" "rg2" {
   name     = var.resource_group_name2
   location = var.location2
 }
+*/
 
 resource "azurerm_virtual_network" "example" {
   name                = var.vnet1
@@ -41,6 +46,7 @@ resource "azurerm_subnet" "internal" {
   address_prefixes     = ["10.0.2.0/24"]
 }
 
+/*
 resource "azurerm_virtual_network" "example2" {
   name                = var.vnet2
   resource_group_name = azurerm_resource_group.rg2.name
@@ -54,6 +60,7 @@ resource "azurerm_subnet" "internal2" {
   virtual_network_name = azurerm_virtual_network.example2.name
   address_prefixes     = ["10.0.2.0/24"]
 }
+*/
 
 resource "azurerm_windows_virtual_machine_scale_set" "example" {
   name                = var.vmss1
@@ -91,6 +98,7 @@ resource "azurerm_windows_virtual_machine_scale_set" "example" {
 }
 
 #Second VMSS
+/*
 resource "azurerm_windows_virtual_machine_scale_set" "example2" {
   name                = var.vmss2
   computer_name_prefix = "vmss2"
@@ -125,3 +133,4 @@ resource "azurerm_windows_virtual_machine_scale_set" "example2" {
     }
   }
 }
+*/
