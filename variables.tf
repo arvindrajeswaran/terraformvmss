@@ -67,3 +67,11 @@ variable "nat2" {
 variable "ipconfig2" {
   type = string
 }
+
+variable "subscription_id" {
+  type = string
+}
+
+variable "tenant_id" {
+  type = string
+}
